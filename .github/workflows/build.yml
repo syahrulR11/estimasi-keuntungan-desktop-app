@@ -18,33 +18,15 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 21
+          # Tambahkan caching Gradle untuk mempercepat build
+          cache: 'gradle' 
 
       - name: Grant permission for Gradle wrapper
         run: chmod +x ./gradlew
 
-      - name: Download JavaFX JMODs 21.0.7 for Linux
-        run: |
-          # Buat direktori tujuan untuk JMODS
-          mkdir -p jmods-dir
-          
-          # Unduh dan unzip file JMODS ke direktori temporer
-          curl -L https://download2.gluonhq.com/openjfx/21.0.7/openjfx-21.0.7_linux-x64_bin-jmods.zip -o javafx-jmods.zip
-          unzip javafx-jmods.zip -d jmods-temp-dir
-          
-          # Pindahkan semua file .jmod langsung dari folder hasil unzip ke direktori target
-          mv jmods-temp-dir/javafx-jmods-21.0.7/* jmods-dir/
-          
-          # Hapus file dan direktori yang tidak diperlukan
-          rm -rf javafx-jmods.zip jmods-temp-dir
-          
-          # Verifikasi bahwa file jmod ada di direktori
-          echo "Listing JMODS directory:"
-          ls -l jmods-dir
-
       - name: Build .deb package
-        # Gunakan variabel lingkungan untuk menunjuk ke direktori JMODS
-        env:
-          ORG_BERYX_RUNTIME_MODULE_PATH: ${{ github.workspace }}/jmods-dir
+        # Cukup panggil task jpackage. Plugin Gradle akan mengunduh JavaFX secara otomatis.
+        # Variabel lingkungan dan skrip download manual tidak diperlukan lagi.
         run: ./gradlew :app:jpackage --stacktrace
 
       - name: Upload .deb artifact
@@ -65,23 +47,12 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 21
+          # Tambahkan caching Gradle untuk mempercepat build
+          cache: 'gradle'
 
-      - name: Download JavaFX JMODs 21.0.7 for Windows
-        run: |
-          # Buat direktori tujuan
-          New-Item -ItemType Directory -Force -Path "jmods-dir"
-          # Unduh dan unzip ke direktori tersebut
-          Invoke-WebRequest -Uri "https://download2.gluonhq.com/openjfx/21.0.7/openjfx-21.0.7_windows-x64_bin-jmods.zip" -OutFile "javafx-jmods.zip"
-          Expand-Archive javafx-jmods.zip -DestinationPath "jmods-dir"
-          # Pindahkan isi folder 'jmods' dari hasil unzip ke dalam direktori target
-          Move-Item -Path "jmods-dir\javafx-jmods-21.0.7\app\mods\*" -Destination "jmods-dir"
-          # Hapus file dan direktori yang tidak diperlukan
-          Remove-Item -Path "javafx-jmods.zip" -Force
-          Remove-Item -Path "jmods-dir\javafx-jmods-21.0.7" -Recurse -Force
-          
       - name: Build .exe package
-        env:
-          ORG_BERYX_RUNTIME_MODULE_PATH: ${{ github.workspace }}\jmods-dir
+        # Cukup panggil task jpackage. Plugin Gradle akan mengunduh JavaFX secara otomatis.
+        # Skrip download manual tidak diperlukan lagi.
         run: ./gradlew.bat :app:jpackage --stacktrace
 
       - name: Upload .exe artifact
