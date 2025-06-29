@@ -29,18 +29,17 @@ jobs:
           curl -L -o javafx-jmods.zip https://download2.gluonhq.com/openjfx/21.0.7/openjfx-21.0.7_linux-x64_bin-jmods.zip
           unzip javafx-jmods.zip
           mv javafx-jmods-21.0.7 app/jmods
-          ls app/jmods
 
-      # - name: Build .deb package
-      #   env:
-      #     ORG_BERYX_RUNTIME_MODULE_PATH: ${{ github.workspace }}/app/jmods
-      #   run: ./gradlew :app:jpackage
+      - name: Build .deb package
+        env:
+          ORG_BERYX_RUNTIME_MODULE_PATH: ${{ github.workspace }}/app/jmods
+        run: ./gradlew :app:jpackage
 
-      # - name: Upload .deb artifact
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: linux-deb
-      #     path: app/build/jpackage/*.deb
+      - name: Upload .deb artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-deb
+          path: app/build/jpackage/*.deb
 
   # build-windows:
   #   runs-on: windows-latest
