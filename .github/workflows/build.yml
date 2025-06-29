@@ -19,7 +19,7 @@ jobs:
           distribution: 'temurin'
           java-version: 21
 
-      - name: Grant execute permission for Gradle wrapper
+      - name: Grant permission for Gradle wrapper
         run: chmod +x ./gradlew
 
       - name: Download JavaFX JMODs 21.0.7 for Linux
@@ -33,7 +33,7 @@ jobs:
           ORG_BERYX_RUNTIME_MODULE_PATH: ${{ github.workspace }}/app/jmods
         run: ./gradlew :app:jpackage
 
-      # - name: Upload .deb as artifact
+      # - name: Upload .deb artifact
       #   uses: actions/upload-artifact@v4
       #   with:
       #     name: linux-deb
@@ -58,12 +58,12 @@ jobs:
   #         Expand-Archive javafx-jmods.zip -DestinationPath .
   #         Move-Item -Path "javafx-jmods-21.0.7" -Destination "app/jmods"
 
-      # - name: Build .exe package
-      #   env:
-      #     ORG_BERYX_RUNTIME_MODULE_PATH: ${{ github.workspace }}\app\jmods
-      #   run: ./gradlew.bat :app:jpackage
+  #     - name: Build .exe package
+  #       env:
+  #         ORG_BERYX_RUNTIME_MODULE_PATH: ${{ github.workspace }}\app\jmods
+  #       run: ./gradlew.bat :app:jpackage
 
-  #     - name: Upload .exe as artifact
+  #     - name: Upload .exe artifact
   #       uses: actions/upload-artifact@v4
   #       with:
   #         name: windows-exe
