@@ -32,7 +32,10 @@ application {
 }
 
 runtime {
-    modules = ['javafx.controls', 'javafx.fxml']
+    options = [
+        '--module-path', "${projectDir}/jmods",
+        '--add-modules', 'javafx.controls,javafx.fxml'
+    ]
 
     jpackage {
         imageName = 'EstimasiKeuntungan'
