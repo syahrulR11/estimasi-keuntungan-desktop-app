@@ -26,8 +26,10 @@ jobs:
         run: |
           curl -L -o javafx-jmods.zip https://download2.gluonhq.com/openjfx/21.0.7/openjfx-21.0.7_linux-x64_bin-jmods.zip
           unzip javafx-jmods.zip
-          ls javafx-jmods-21.0.7
-          # mv openjfx-21.0.7_linux-x64_bin-jmods/javafx-jmods-21.0.7 app/jmods
+          mv javafx-jmods-21.0.7 app/jmods
+          ls app
+          echo "------"
+          ls app/jmods
 
       # - name: Build .deb package
       #   run: ./gradlew :app:jpackage
