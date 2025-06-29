@@ -13,13 +13,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Java with JavaFX (Liberica)
-        uses: bellsoft/setup-java@v1
+      - name: Set up JDK 21 with JavaFX (Liberica)
+        uses: actions/setup-java@v4
         with:
+          distribution: 'liberica'
           java-version: '21'
-          java-package: jdk
-          java-distribution: liberica
-          cache: 'gradle'
 
       - name: Grant permission for Gradle wrapper
         run: chmod +x ./gradlew
