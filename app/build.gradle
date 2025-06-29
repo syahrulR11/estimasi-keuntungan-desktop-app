@@ -30,6 +30,10 @@ application {
 runtime {
     modules = ['javafx.controls', 'javafx.fxml']
 
+    if (System.getenv("CI") == "true") {
+        jlinkZip = file("${projectDir}/jmods")
+    }
+
     jpackage {
         imageName = 'EstimasiKeuntungan'
         installerName = 'EstimasiKeuntungan'
@@ -51,7 +55,7 @@ runtime {
             installerOptions = [
                 '--vendor', 'Syahrul Software',
                 '--linux-shortcut',
-                '--icon', 'src/main/resources/estimasi-keuntungan.png'
+                '--icon', 'src/main/resources/org/assets/estimasi-keuntungan.png'
             ]
         }
     }
