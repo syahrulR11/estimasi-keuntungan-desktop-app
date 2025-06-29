@@ -1,9 +1,0 @@
-#!/bin/bash
-set -e
-
-# Copy icon to /usr/share/pixmaps
-cp /opt/EstimasiKeuntungan/lib/app/org/assets/estimasi-keuntungan.png /usr/share/pixmaps/
-
-# Update icon DB
-update-desktop-database || true
-gtk-update-icon-cache /usr/share/icons/hicolor || true
