@@ -32,12 +32,8 @@ application {
 }
 
 runtime {
-    modules = ['javafx.controls', 'javafx.fxml']
-
-    jlink {
-        addExtraModules = ['javafx.controls', 'javafx.fxml']
-        jmodPath = file("${projectDir}/jmods").absolutePath
-    }
+    jmodPath = file("${projectDir}/jmods").absolutePath
+    addModules = ['javafx.controls', 'javafx.fxml']
 
     jpackage {
         imageName = 'EstimasiKeuntungan'
