@@ -1,7 +1,7 @@
 plugins {
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.1.0'
-    id 'org.beryx.runtime' version '1.13.0'
+    id 'org.beryx.runtime' version '1.12.7'
 }
 
 repositories {
@@ -32,10 +32,7 @@ application {
 }
 
 runtime {
-    jlink {
-        jmodPath = file("${projectDir}/jmods")
-        addExtraModules = ['javafx.controls', 'javafx.fxml']
-    }
+    modules = ['javafx.controls', 'javafx.fxml']
 
     jpackage {
         imageName = 'EstimasiKeuntungan'
