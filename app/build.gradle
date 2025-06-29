@@ -28,7 +28,7 @@ application {
 }
 
 runtime {
-    // Ini adalah blok 'modules' yang sudah benar dan terbukti bekerja di lokal
+    options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
     modules = ['javafx.controls', 'javafx.fxml']
 
     jpackage {
@@ -52,12 +52,8 @@ runtime {
             installerOptions = [
                 '--vendor', 'Syahrul Software',
                 '--linux-shortcut',
-                '--icon', 'src/main/resources/org/assets/estimasi-keuntungan.png'
+                '--icon', 'src/main/resources/org/assets/icon.png'
             ]
         }
     }
-    
-    // Blok jlink{} dan task downloadJavaFXJmods{} yang sebelumnya ditambahkan
-    // adalah penyebab masalah. Saya telah menghapusnya karena tidak didukung
-    // oleh versi plugin yang Anda gunakan.
 }
