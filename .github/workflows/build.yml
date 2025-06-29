@@ -29,6 +29,8 @@ jobs:
           mv javafx-jmods-21.0.7 app/jmods
 
       - name: Build .deb package
+        env:
+          ORG_BERYX_RUNTIME_MODULE_PATH: ${{ github.workspace }}/app/jmods
         run: ./gradlew :app:jpackage
 
       # - name: Upload .deb as artifact
@@ -56,8 +58,10 @@ jobs:
   #         Expand-Archive javafx-jmods.zip -DestinationPath .
   #         Move-Item -Path "javafx-jmods-21.0.7" -Destination "app/jmods"
 
-  #     - name: Build .exe package
-  #       run: ./gradlew.bat :app:jpackage
+      # - name: Build .exe package
+      #   env:
+      #     ORG_BERYX_RUNTIME_MODULE_PATH: ${{ github.workspace }}\app\jmods
+      #   run: ./gradlew.bat :app:jpackage
 
   #     - name: Upload .exe as artifact
   #       uses: actions/upload-artifact@v4
