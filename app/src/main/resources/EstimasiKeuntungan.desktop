@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Estimasi Keuntungan
+Exec=EstimasiKeuntungan
+Icon=estimasi-keuntungan
+Comment=Aplikasi Estimasi Keuntungan Usaha
+Categories=Utility;
+Terminal=false
+Type=Application
