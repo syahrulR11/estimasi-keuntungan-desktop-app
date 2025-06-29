@@ -18,15 +18,12 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 21
-          # Tambahkan caching Gradle untuk mempercepat build
-          cache: 'gradle' 
+          cache: 'gradle'
 
       - name: Grant permission for Gradle wrapper
         run: chmod +x ./gradlew
 
       - name: Build .deb package
-        # Cukup panggil task jpackage. Plugin Gradle akan mengunduh JavaFX secara otomatis.
-        # Tidak perlu skrip unduh manual atau variabel lingkungan tambahan.
         run: ./gradlew :app:jpackage --stacktrace
 
       - name: Upload .deb artifact
@@ -47,12 +44,9 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 21
-          # Tambahkan caching Gradle untuk mempercepat build
           cache: 'gradle'
 
       - name: Build .exe package
-        # Cukup panggil task jpackage. Plugin Gradle akan mengunduh JavaFX secara otomatis.
-        # Tidak perlu skrip unduh manual atau variabel lingkungan tambahan.
         run: ./gradlew.bat :app:jpackage --stacktrace
 
       - name: Upload .exe artifact

@@ -6,7 +6,6 @@ plugins {
 
 repositories {
     mavenCentral()
-    mavenLocal()
 }
 
 dependencies {
@@ -29,6 +28,7 @@ application {
 }
 
 runtime {
+    // Ini adalah blok 'modules' yang sudah benar dan terbukti bekerja di lokal
     modules = ['javafx.controls', 'javafx.fxml']
 
     jpackage {
@@ -56,4 +56,8 @@ runtime {
             ]
         }
     }
+    
+    // Blok jlink{} dan task downloadJavaFXJmods{} yang sebelumnya ditambahkan
+    // adalah penyebab masalah. Saya telah menghapusnya karena tidak didukung
+    // oleh versi plugin yang Anda gunakan.
 }
