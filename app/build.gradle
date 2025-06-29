@@ -10,6 +10,11 @@ repositories {
 
 dependencies {
     implementation 'com.google.guava:guava:33.0.0-jre'
+
+    def os = org.gradle.internal.os.OperatingSystem.current()
+    def platform = os.isWindows() ? 'windows' : os.isLinux() ? 'linux' : 'mac'
+    implementation "org.openjfx:javafx-controls:21.0.7:${platform}"
+    implementation "org.openjfx:javafx-fxml:21.0.7:${platform}"
 }
 
 javafx {
@@ -40,23 +45,23 @@ runtime {
         appVersion = '1.0.0'
 
         def os = org.gradle.internal.os.OperatingSystem.current()
+        installerType = os.isWindows() ? 'exe' : 'deb'
+        installerOptions = [
+            '--vendor', 'Syahrul Software',
+            '--icon', os.isWindows()
+                ? 'src/main/resources/org/assets/icon.ico'
+                : 'src/main/resources/estimasi-keuntungan.png'
+        ]
+
         if (os.isWindows()) {
-            installerType = 'exe'
-            installerOptions = [
-                '--vendor', 'Syahrul Software',
+            installerOptions += [
                 '--win-per-user-install',
                 '--win-dir-chooser',
                 '--win-menu',
-                '--win-shortcut',
-                '--icon', 'src/main/resources/org/assets/icon.ico'
+                '--win-shortcut'
             ]
         } else if (os.isLinux()) {
-            installerType = 'deb'
-            installerOptions = [
-                '--vendor', 'Syahrul Software',
-                '--linux-shortcut',
-                '--icon', 'src/main/resources/estimasi-keuntungan.png'
-            ]
+            installerOptions += ['--linux-shortcut']
         }
     }
 }
