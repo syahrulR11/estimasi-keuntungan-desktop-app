@@ -13,11 +13,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up JDK 21
-        uses: actions/setup-java@v4
+      - name: Setup Java with JavaFX (Liberica)
+        uses: bellsoft/setup-java@v1
         with:
-          distribution: 'temurin'
-          java-version: 21
+          java-version: '21'
+          java-package: jdk
+          java-distribution: liberica
+          cache: 'gradle'
 
       - name: Grant permission for Gradle wrapper
         run: chmod +x ./gradlew
@@ -47,11 +49,13 @@ jobs:
   #   steps:
   #     - uses: actions/checkout@v4
 
-  #     - name: Set up JDK 21
-  #       uses: actions/setup-java@v4
-  #       with:
-  #         distribution: 'temurin'
-  #         java-version: 21
+  #     - name: Setup Java with JavaFX (Liberica)
+          # uses: bellsoft/setup-java@v1
+          # with:
+          #   java-version: '21'
+          #   java-package: jdk
+          #   java-distribution: liberica
+          #   cache: 'gradle'
 
   #     - name: Download JavaFX JMODs 21.0.7 for Windows
   #       run: |
