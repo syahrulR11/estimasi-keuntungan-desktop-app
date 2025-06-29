@@ -32,8 +32,10 @@ application {
 }
 
 runtime {
-    jmodPath = file("${projectDir}/jmods").absolutePath
-    addModules = ['javafx.controls', 'javafx.fxml']
+    jlink {
+        jmodPath = file("${projectDir}/jmods")
+        addExtraModules = ['javafx.controls', 'javafx.fxml']
+    }
 
     jpackage {
         imageName = 'EstimasiKeuntungan'
@@ -41,10 +43,9 @@ runtime {
         appVersion = '1.0.0'
         skipInstaller = false
 
-        def isWindows = org.gradle.internal.os.OperatingSystem.current().isWindows()
-        def isLinux = org.gradle.internal.os.OperatingSystem.current().isLinux()
+        def os = org.gradle.internal.os.OperatingSystem.current()
 
-        if (isWindows) {
+        if (os.isWindows()) {
             installerType = 'exe'
             installerOptions = [
                 '--vendor', 'Syahrul Software',
@@ -57,7 +58,7 @@ runtime {
             ]
         }
 
-        if (isLinux) {
+        if (os.isLinux()) {
             installerType = 'deb'
             installerOptions = [
                 '--vendor', 'Syahrul Software',
