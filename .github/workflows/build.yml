@@ -26,7 +26,7 @@ jobs:
 
       - name: Build .deb package
         # Cukup panggil task jpackage. Plugin Gradle akan mengunduh JavaFX secara otomatis.
-        # Variabel lingkungan dan skrip download manual tidak diperlukan lagi.
+        # Tidak perlu skrip unduh manual atau variabel lingkungan tambahan.
         run: ./gradlew :app:jpackage --stacktrace
 
       - name: Upload .deb artifact
@@ -52,7 +52,7 @@ jobs:
 
       - name: Build .exe package
         # Cukup panggil task jpackage. Plugin Gradle akan mengunduh JavaFX secara otomatis.
-        # Skrip download manual tidak diperlukan lagi.
+        # Tidak perlu skrip unduh manual atau variabel lingkungan tambahan.
         run: ./gradlew.bat :app:jpackage --stacktrace
 
       - name: Upload .exe artifact
