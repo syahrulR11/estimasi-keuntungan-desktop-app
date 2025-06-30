@@ -1,66 +1,55 @@
-name: Build JavaFX App
+name: Gradle Build
 
-on:
-  push:
-    branches: [ main ]
+on: [push, pull_request]
 
 jobs:
-  build-linux:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macOS-latest, windows-latest]
+        java: [ '15.0.1' ]
+      fail-fast: false
+    name: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up BellSoft Liberica JDK 21
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'liberica'
-          java-version: '21'
-
-      - name: Download JavaFX SDK
-        run: |
-          wget https://download2.gluonhq.com/openjfx/21.0.2/openjfx-21.0.2_linux-x64_bin-sdk.zip
-          unzip openjfx-21.0.2_linux-x64_bin-sdk.zip -d javafx-sdk
-
-      - name: Grant Gradle permission
-        run: chmod +x ./gradlew
-
-      - name: Build .deb package
-        run: ./gradlew :app:jpackage
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: linux-deb
-          path: app/build/jpackage/*.deb
-
-  # build-windows:
-  #   runs-on: windows-latest
-  #   name: Build .exe on Windows
-
-  #   steps:
-  #     - uses: actions/checkout@v4
-
-  #     - name: Setup Java with JavaFX (Liberica)
-          # uses: bellsoft/setup-java@v1
-          # with:
-          #   java-version: '21'
-          #   java-package: jdk
-          #   java-distribution: liberica
-          #   cache: 'gradle'
-
-  #     - name: Download JavaFX JMODs 21.0.7 for Windows
-  #       run: |
-  #         Invoke-WebRequest -Uri "https://download2.gluonhq.com/openjfx/21.0.7/openjfx-21.0.7_windows-x64_bin-jmods.zip" -OutFile "javafx-jmods.zip"
-  #         Expand-Archive javafx-jmods.zip -DestinationPath .
-  #         Move-Item -Path "javafx-jmods-21.0.7" -Destination "app/jmods"
-
-  #     - name: Build .exe package
-  #       env:
-  #         ORG_BERYX_RUNTIME_MODULE_PATH: ${{ github.workspace }}\app\jmods
-  #       run: ./gradlew.bat :app:jpackage
-
-  #     - name: Upload .exe artifact
-  #       uses: actions/upload-artifact@v4
-  #       with:
-  #         name: windows-exe
-  #         path: app\build\jpackage\*.exe
+    - name: Git checkout
+      uses: actions/checkout@v2
+    - name: Set up JDK
+      uses: actions/setup-java@v1
+      with:
+        java-version: ${{ matrix.java }}
+    - name: Echo JAVA_HOME
+      run: echo $JAVA_HOME
+    - name: Verify Gradle Wrapper
+      uses: gradle/wrapper-validation-action@v1
+    - name: Execute build
+      run: ./gradlew --info --stacktrace build
+    - name: Execute runtime
+      run: ./gradlew --info --stacktrace runtime
+    - name: Execute jpackage
+      run: ./gradlew --info --stacktrace jpackage
+    - name: Upload DMG as an artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: hellofx-jdk${{ matrix.java }}-${{ matrix.os }}-dmg
+        path: build/jpackage/*.dmg
+    - name: Upload EXE as an artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: hellofx-jdk${{ matrix.java }}-${{ matrix.os }}-exe
+        path: build/jpackage/*.exe
+    - name: Upload MSI as an artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: hellofx-jdk${{ matrix.java }}-${{ matrix.os }}-msi
+        path: build/jpackage/*.msi
+    - name: Upload DEB as an artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: hellofx-jdk${{ matrix.java }}-${{ matrix.os }}-deb
+        path: build/jpackage/*.deb
+    - name: Upload RPM as an artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: hellofx-jdk${{ matrix.java }}-${{ matrix.os }}-rpm
+        path: build/jpackage/*.rpm
