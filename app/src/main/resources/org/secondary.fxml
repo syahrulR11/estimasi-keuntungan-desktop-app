@@ -8,7 +8,7 @@
 <VBox 
     alignment="TOP_LEFT" 
     spacing="10.0" 
-    xmlns="http://javafx.com/javafx/21.0.7" 
+    xmlns="http://javafx.com/javafx/" 
     xmlns:fx="http://javafx.com/fxml/1" 
     fx:controller="org.controllers.SecondaryController">
     <children>

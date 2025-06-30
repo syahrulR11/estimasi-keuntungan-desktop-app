@@ -4,7 +4,7 @@
 <?import javafx.geometry.Insets?>
 
 <VBox 
-	xmlns="http://javafx.com/javafx/21.0.7"
+	xmlns="http://javafx.com/javafx/"
 	xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="org.controllers.PrimaryController"
 	fx:id="container"
