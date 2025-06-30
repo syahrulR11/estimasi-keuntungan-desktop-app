@@ -30,18 +30,17 @@ jobs:
 
       - name: Build App
         run: ./gradlew :app:jpackage
-      
 
       - name: List dir
-        run: ls app
+        run: ls app/build
 
       - name: Upload EXE as an artifact
         uses: actions/upload-artifact@v4
         with:
           name: estimasikeuntungan-jdk${{ matrix.java }}-${{ matrix.os }}-exe
-          path: build/jpackage/*.exe
+          path: app/build/jpackage/*.exe
       - name: Upload DEB as an artifact
         uses: actions/upload-artifact@v4
         with:
           name: estimasikeuntungan-jdk${{ matrix.java }}-${{ matrix.os }}-deb
-          path: build/jpackage/*.deb
+          path: app/build/jpackage/*.deb
