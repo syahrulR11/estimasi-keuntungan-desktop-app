@@ -28,34 +28,28 @@ application {
 }
 
 runtime {
-    options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
     modules = ['javafx.controls', 'javafx.fxml']
-
-    additive = true
 
     jpackage {
         imageName = 'EstimasiKeuntungan'
         installerName = 'EstimasiKeuntungan'
         appVersion = '1.0.0'
 
-        def os = org.gradle.internal.os.OperatingSystem.current()
-        if (os.isWindows()) {
-            installerType = 'exe'
-            installerOptions = [
-                '--vendor', 'Syahrul Software',
-                '--win-per-user-install',
-                '--win-dir-chooser',
-                '--win-menu',
-                '--win-shortcut',
-                '--icon', 'src/main/resources/org/assets/icon.ico'
-            ]
-        } else if (os.isLinux()) {
-            installerType = 'deb'
-            installerOptions = [
-                '--vendor', 'Syahrul Software',
-                '--linux-shortcut',
-                '--icon', 'src/main/resources/org/assets/icon.png'
-            ]
+        def currentOs = org.gradle.internal.os.OperatingSystem.current()
+        installerType = currentOs.windows ? 'exe' : currentOs.macOsX ? 'dmg' : 'deb'
+        def imgType = currentOs.windows ? 'ico' : currentOs.macOsX ? 'icns' : 'png'
+        imageOptions += ['--icon', "src/main/resources/org/assets/icon.$imgType"]
+        installerOptions += ['--resource-dir', "src/main/resources"]
+        installerOptions += ['--vendor', 'Acme Corporation']
+
+        if(currentOs.windows) {
+            installerOptions += ['--win-per-user-install', '--win-dir-chooser', '--win-menu', '--win-shortcut']
+        }
+        else if (currentOs.linux) {
+            installerOptions += ['--linux-package-name', 'estimasikeuntungan','--linux-shortcut']
+        }
+        else if (currentOs.macOsX) {
+            installerOptions += ['--mac-package-name', 'estimasikeuntungan']
         }
     }
 }
