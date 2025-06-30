@@ -28,8 +28,12 @@ jobs:
       - name: Grant Gradle permission
         run: chmod +x ./gradlew
 
-      - name: Build .deb package
+      - name: Build App
         run: ./gradlew :app:jpackage
+      
+
+      - name: List dir
+        run: ls
 
       - name: Upload EXE as an artifact
         uses: actions/upload-artifact@v4
