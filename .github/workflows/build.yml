@@ -23,14 +23,18 @@ jobs:
         cache: 'gradle'
     - name: Echo JAVA_HOME
       run: echo $JAVA_HOME
+
     - name: Verify Gradle Wrapper
       uses: gradle/wrapper-validation-action@v3
+
+    # - name: Execute build
+    #   run: ./gradlew --info --stacktrace build
+    # - name: Execute runtime
+    #   run: ./gradlew --info --stacktrace runtime
+    # - name: Execute jpackage
+    #   run: ./gradlew --info --stacktrace jpackage
     - name: Execute build
-      run: ./gradlew --info --stacktrace build
-    - name: Execute runtime
-      run: ./gradlew --info --stacktrace runtime
-    - name: Execute jpackage
-      run: ./gradlew --info --stacktrace jpackage
+      run: ./gradlew :app:jpackage
 
     - name: Upload DMG as an artifact
       uses: actions/upload-artifact@v4
