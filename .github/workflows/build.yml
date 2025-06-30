@@ -17,8 +17,10 @@ jobs:
     - name: Set up JDK
       uses: actions/setup-java@v4
       with:
+        distribution: 'liberica'
         java-version: ${{ matrix.java }}
-        distribution: 'temurin'
+        java-package: 'jdk+fx'
+        cache: 'gradle'
     - name: Echo JAVA_HOME
       run: echo $JAVA_HOME
     - name: Verify Gradle Wrapper
