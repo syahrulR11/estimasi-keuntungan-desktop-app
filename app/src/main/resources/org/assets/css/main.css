@@ -1,0 +1,341 @@
+/* ======= ROOT / LATAR (tema sama dengan login) ======= */
+.app-root {
+  -fx-background-color: linear-gradient(to bottom right, #e9f0ff, #f8f0ff);
+  -fx-font-family: "Segoe UI", "Inter", Arial, sans-serif;
+  -fx-font-size: 13px;
+  -fx-text-fill: #1f2937;
+}
+
+.scroll-transparent {
+  -fx-background-color: transparent;
+}
+.scroll-transparent > .viewport {
+  -fx-background-color: transparent;
+}
+.scroll-transparent .corner {
+  -fx-background-color: transparent;
+}
+
+/* ======= SIDEBAR & BRAND ======= */
+.sidebar {
+  /* gradasi ungu gelap yang nyambung dengan tombol di login */
+  -fx-background-color: linear-gradient(to bottom, #5b21b6, #6d28d9);
+  -fx-padding: 20;
+}
+/* Logo sidebar */
+.sidebar-logo {
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 10, 0.3, 0, 2);
+  -fx-opacity: 0.95;
+}
+
+/* ======= NAV BUTTONS (kiri) ======= */
+.nav-button {
+  -fx-text-fill: white;
+  -fx-background-color: transparent;
+  -fx-background-radius: 12;
+  -fx-padding: 10 14;
+  -fx-alignment: CENTER_LEFT;
+  -fx-cursor: hand;
+  -fx-border-color: transparent;
+  -fx-border-radius: 12;
+  -fx-graphic-text-gap: 10;
+}
+.nav-button .ikonli-font-icon {
+  -fx-icon-color: rgba(255,255,255,0.55);
+}
+.nav-button:hover {
+  -fx-background-color: rgba(255,255,255,0.12);
+}
+.nav-button:hover .ikonli-font-icon {
+  -fx-icon-color: #ffffff;
+}
+.nav-button:pressed {
+  -fx-background-color: rgba(255,255,255,0.18);
+}
+.nav-button.active {
+  -fx-background-color: rgba(255,255,255,0.22);
+  -fx-font-weight: bold;
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.20), 10, 0.3, 0, 2);
+}
+.nav-button.active .ikonli-font-icon {
+  -fx-icon-color: #ffffff;
+}
+
+/* ======= CARD / PANEL KONTEN (sama dengan login-card) ======= */
+.card {
+  -fx-background-color: white;
+  -fx-background-radius: 16;
+  -fx-padding: 16;
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 16, 0.25, 0, 6);
+}
+.card-table {
+  -fx-background-color: white;
+  -fx-background-radius: 8;
+  -fx-padding: 16;
+}
+.card-title {
+  -fx-font-size: 16px;
+  -fx-font-weight: bold;
+  -fx-text-fill: #4a2979;
+}
+
+/* ======= INPUT (konsisten dengan login) ======= */
+.text-field, .password-field, .combo-box-base, .date-picker,
+.choice-box, .spinner, .color-picker {
+  -fx-background-radius: 10;
+  -fx-background-color: #f3f4f6;
+  -fx-padding: 10 12;
+  -fx-border-color: transparent;
+  -fx-border-radius: 10;
+  -fx-max-width: Infinity;
+  -fx-pref-height: 55;
+  -fx-min-height: 55;
+  -fx-max-height: 55;
+}
+.text-field:focused, .password-field:focused, .combo-box-base:focused,
+.date-picker:focused, .choice-box:focused, .spinner:focused, .color-picker:focused {
+  -fx-background-color: white;
+  -fx-border-color: #8b5cf6;
+  -fx-effect: dropshadow(three-pass-box, rgba(139,92,246,0.25), 12, 0.3, 0, 0);
+}
+
+/* ======= BUTTONS (pakai gaya login untuk .btn-primary) ======= */
+/* === Base (diterapkan ke semua varian) === */
+.btn, .btn-primary, .btn-secondary, .btn-success, .btn-warning, .btn-info,
+.btn-danger, .btn-outline, .btn-ghost {
+  -fx-background-radius: 12;
+  -fx-padding: 10 16;
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-cursor: hand;
+  -fx-graphic-text-gap: 8;
+  -fx-background-insets: 0,1,2;
+  -fx-border-color: transparent;
+}
+.btn:focused, .btn-primary:focused, .btn-secondary:focused, .btn-success:focused,
+.btn-warning:focused, .btn-info:focused, .btn-danger:focused,
+.btn-outline:focused, .btn-ghost:focused {
+  -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.25), 12, 0.3, 0, 0);
+}
+.btn:disabled, .btn-primary:disabled, .btn-secondary:disabled, .btn-success:disabled,
+.btn-warning:disabled, .btn-info:disabled, .btn-danger:disabled,
+.btn-outline:disabled, .btn-ghost:disabled {
+  -fx-opacity: .6; -fx-effect: none; -fx-cursor: default;
+}
+/* === Primary (ungu – sudah ada) === */
+.btn-primary {
+  -fx-background-color:
+    linear-gradient(to bottom, rgba(255,255,255,.15), rgba(0,0,0,.08)),
+    linear-gradient(to bottom, #8b5cf6, #6d28d9),
+    #5b21b6;
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,.22), 8, .25, 0, 3);
+}
+.btn-primary:hover {
+  -fx-background-color:
+    linear-gradient(to bottom, rgba(255,255,255,.25), rgba(0,0,0,.06)),
+    linear-gradient(to bottom, #9f7aea, #7c3aed),
+    #6d28d9;
+}
+.btn-primary:pressed {
+  -fx-background-insets: 1,2,3;
+  -fx-background-color:
+    linear-gradient(to bottom, rgba(0,0,0,.10), rgba(0,0,0,.18)),
+    linear-gradient(to bottom, #7c3aed, #5b21b6),
+    #4c1d95;
+}
+/* === Secondary (abu-slate) === */
+.btn-secondary {
+  -fx-background-color:
+    linear-gradient(to bottom, rgba(255,255,255,.12), rgba(0,0,0,.06)),
+    linear-gradient(to bottom, #64748b, #475569),
+    #334155;
+}
+.btn-secondary:hover {
+  -fx-background-color:
+    linear-gradient(to bottom, rgba(255,255,255,.20), rgba(0,0,0,.06)),
+    linear-gradient(to bottom, #748398, #516076),
+    #3b4a5e;
+}
+.btn-secondary:pressed {
+  -fx-background-insets: 1,2,3;
+  -fx-background-color:
+    linear-gradient(to bottom, rgba(0,0,0,.12), rgba(0,0,0,.20)),
+    linear-gradient(to bottom, #475569, #334155),
+    #24303f;
+}
+/* === Success (hijau) === */
+.btn-success {
+  -fx-background-color:
+    linear-gradient(to bottom, rgba(255,255,255,.15), rgba(0,0,0,.08)),
+    linear-gradient(to bottom, #22c55e, #16a34a),
+    #15803d;
+}
+.btn-success:hover {
+  -fx-background-color:
+    linear-gradient(to bottom, rgba(255,255,255,.22), rgba(0,0,0,.06)),
+    linear-gradient(to bottom, #34d399, #22c55e),
+    #16a34a;
+}
+.btn-success:pressed {
+  -fx-background-insets: 1,2,3;
+  -fx-background-color:
+    linear-gradient(to bottom, rgba(0,0,0,.10), rgba(0,0,0,.18)),
+    linear-gradient(to bottom, #16a34a, #15803d),
+    #166534;
+}
+/* === Warning (amber) === */
+.btn-warning {
+  -fx-background-color:
+    linear-gradient(to bottom, rgba(255,255,255,.15), rgba(0,0,0,.08)),
+    linear-gradient(to bottom, #f59e0b, #d97706),
+    #b45309;
+}
+.btn-warning:hover {
+  -fx-background-color:
+    linear-gradient(to bottom, rgba(255,255,255,.22), rgba(0,0,0,.06)),
+    linear-gradient(to bottom, #fbbf24, #f59e0b),
+    #d97706;
+}
+.btn-warning:pressed {
+  -fx-background-insets: 1,2,3;
+  -fx-background-color:
+    linear-gradient(to bottom, rgba(0,0,0,.10), rgba(0,0,0,.18)),
+    linear-gradient(to bottom, #d97706, #b45309),
+    #92400e;
+}
+/* === Info (biru) === */
+.btn-info {
+  -fx-background-color:
+    linear-gradient(to bottom, rgba(255,255,255,.15), rgba(0,0,0,.08)),
+    linear-gradient(to bottom, #60a5fa, #3b82f6),
+    #2563eb;
+}
+.btn-info:hover {
+  -fx-background-color:
+    linear-gradient(to bottom, rgba(255,255,255,.22), rgba(0,0,0,.06)),
+    linear-gradient(to bottom, #93c5fd, #60a5fa),
+    #3b82f6;
+}
+.btn-info:pressed {
+  -fx-background-insets: 1,2,3;
+  -fx-background-color:
+    linear-gradient(to bottom, rgba(0,0,0,.10), rgba(0,0,0,.18)),
+    linear-gradient(to bottom, #3b82f6, #2563eb),
+    #1d4ed8;
+}
+/* === Danger (merah) === */
+.btn-danger {
+  -fx-background-color:
+    linear-gradient(to bottom, rgba(255,255,255,.15), rgba(0,0,0,.10)),
+    linear-gradient(to bottom, #f14a41, #d93a32),
+    #c62828;
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,.22), 8, .25, 0, 3);
+}
+.btn-danger:hover {
+  -fx-background-color:
+    linear-gradient(to bottom, rgba(255,255,255,.25), rgba(0,0,0,.08)),
+    linear-gradient(to bottom, #ff5c53, #e2433b),
+    #d32f2f;
+}
+.btn-danger:pressed {
+  -fx-background-insets: 1,2,3;
+  -fx-background-color:
+    linear-gradient(to bottom, rgba(0,0,0,.10), rgba(0,0,0,.18)),
+    linear-gradient(to bottom, #ff5c53, #e2433b),
+    #d32f2f;
+}
+/* === Outline (garis tepi, transparan) === */
+.btn-outline {
+  -fx-text-fill: #6d28d9;
+  -fx-background-color: transparent;
+  -fx-border-color: #6d28d9;
+  -fx-border-width: 2;
+}
+.btn-outline:hover { -fx-background-color: rgba(109,40,217,.10); }
+.btn-outline:pressed {
+  -fx-background-insets: 1;
+  -fx-background-color: rgba(109,40,217,.18);
+}
+/* === Ghost (bening, hanya hover tint) === */
+.btn-ghost {
+  -fx-text-fill: #4a2979;
+  -fx-background-color: transparent;
+}
+.btn-ghost:hover { -fx-background-color: rgba(74,41,121,.10); }
+.btn-ghost:pressed {
+  -fx-background-insets: 1;
+  -fx-background-color: rgba(74,41,121,.18);
+}
+/* === Ukuran === */
+.btn-sm, .btn-primary-sm, .btn-secondary-sm, .btn-success-sm,
+.btn-warning-sm, .btn-info-sm, .btn-danger-sm, .btn-outline-sm, .btn-ghost-sm {
+  -fx-padding: 6 12; -fx-font-size: 12px; -fx-background-radius: 10;
+}
+.btn-lg, .btn-primary-lg, .btn-secondary-lg, .btn-success-lg,
+.btn-warning-lg, .btn-info-lg, .btn-danger-lg, .btn-outline-lg, .btn-ghost-lg {
+  -fx-padding: 12 18; -fx-font-size: 15px; -fx-background-radius: 14;
+}
+/* === Warna ikon Ikonli di tombol solid === */
+.btn-primary .ikonli-font-icon,
+.btn-secondary .ikonli-font-icon,
+.btn-success .ikonli-font-icon,
+.btn-warning .ikonli-font-icon,
+.btn-info .ikonli-font-icon,
+.btn-danger .ikonli-font-icon { -fx-icon-color: white; }
+/* Ikon di outline/ghost mengikuti teks */
+.btn-outline .ikonli-font-icon { -fx-icon-color: #6d28d9; }
+.btn-ghost   .ikonli-font-icon { -fx-icon-color: #4a2979; }
+
+/* ======= TABLE ======= */
+.table-view {
+  -fx-background-color: transparent;
+  -fx-background-radius: 12;
+}
+.table-view .column-header-background {
+  -fx-background-color: linear-gradient(to bottom, #eef2ff, #eaeaff);
+  -fx-background-radius: 12 12 0 0;
+  -fx-padding: 6 8;
+}
+.table-view .table-row-cell:filled:hover   { -fx-background-color: #f3f0ff; }
+.table-view .table-row-cell:filled:selected{ -fx-background-color: #e9ddff; }
+
+/* ======= TABS ======= */
+/* Header & background */
+.tabs .tab-header-area,
+.tabs .tab-header-background { -fx-background-color: transparent; }
+/* Bentuk tab */
+.tabs .tab { -fx-background-insets: 0; -fx-background-radius: 8 8 0 0; }
+/* Label default */
+.tabs .tab .tab-label { -fx-text-fill: #1f2937; }
+/* Tab aktif */
+.tabs .tab:selected {
+  -fx-background-color: #ede9fe;            /* pakai !important jika masih kalah */
+}
+.tabs .tab:selected .tab-label {
+  -fx-text-fill: #6d28d9;
+  -fx-font-weight: bold;
+}
+/* Area konten tab */
+.tabs .tab-content-area { -fx-background-color: transparent; }
+/* Hilangkan ring fokus default di header */
+.tabs .tab:selected .focus-indicator { -fx-border-color: transparent; }
+
+/* ======= UTILITIES ======= */
+.w-100 { -fx-max-width: Infinity; }
+.alert-container { -fx-padding: 20; -fx-background-color: transparent; }
+.muted { -fx-text-fill: #6b7280; }
+
+/* CheckBox akses (lebih tinggi & kotak lebih besar) */
+.access-checkbox {
+  -fx-font-size: 12px;
+  -fx-padding: 6 12 6 0; /* tambah tinggi total */
+}
+/* ukuran kotak centang (checkbox square) */
+.access-checkbox > .box {
+  -fx-min-width: 18;
+  -fx-min-height: 18;
+  -fx-pref-width: 18;
+  -fx-pref-height: 18;
+}
+/* biar fokus tampak */
+.access-checkbox:focused { -fx-effect: dropshadow(three-pass-box, rgba(109,40,217,.35), 8, .3, 0, 0); }

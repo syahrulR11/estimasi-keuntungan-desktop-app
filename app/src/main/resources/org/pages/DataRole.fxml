@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="org.controllers.DataRoleController"
+        spacing="12">
+
+    <!-- ===== FORM ===== -->
+    <VBox spacing="12" styleClass="card">
+        <Label text="Kelola Role" styleClass="card-title"/>
+
+        <GridPane hgap="12" vgap="8">
+        <columnConstraints>
+            <ColumnConstraints minWidth="120" halignment="RIGHT"/>
+            <ColumnConstraints hgrow="ALWAYS"/>
+            <ColumnConstraints minWidth="120" halignment="RIGHT"/>
+            <ColumnConstraints hgrow="ALWAYS"/>
+        </columnConstraints>
+
+        <Label text="ID" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="tfId" editable="false" promptText="(otomatis)" disable="true"
+                    GridPane.rowIndex="0" GridPane.columnIndex="1" styleClass="form-input"/>
+
+        <Label text="Nama Role" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+        <TextField fx:id="tfName" promptText="Admin / Staff / Viewer"
+                    GridPane.rowIndex="0" GridPane.columnIndex="3" styleClass="form-input"/>
+
+        <!-- ... di dalam GridPane form ... -->
+        <Label text="Akses" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+
+        <VBox spacing="6" GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.columnSpan="3">
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <CheckBox fx:id="cbSelectAll" text="Pilih semua"/>
+        </HBox>
+
+        <ScrollPane fx:id="spAccess"
+                fitToWidth="true"
+                prefHeight="220"
+                maxHeight="220"
+                styleClass="scroll-transparent">
+            <content>
+                <FlowPane fx:id="accessContainer" hgap="14" vgap="10" prefWrapLength="780"/>
+            </content>
+        </ScrollPane>
+        </VBox>
+
+        <HBox alignment="CENTER_RIGHT" spacing="8"
+                GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.columnSpan="4">
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="Simpan"  onAction="#onSimpan"  styleClass="btn-primary"/>
+            <Button text="Edit"    onAction="#onUbah"    styleClass="btn-info"/>
+            <Button text="Hapus"   onAction="#onHapus"   styleClass="btn-danger"/>
+            <Button text="Reset"   onAction="#onReset"   styleClass="btn-warning"/>
+        </HBox>
+        </GridPane>
+    </VBox>
+
+    <!-- ===== TABEL ===== -->
+    <VBox spacing="10" styleClass="card" VBox.vgrow="ALWAYS">
+        <HBox spacing="8" alignment="CENTER_LEFT">
+        <Label text="Daftar Role" styleClass="card-title"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <TextField fx:id="tfCari" promptText="Cari nama..." styleClass="form-input"/>
+        <Button text="Refresh" onAction="#onRefresh" styleClass="btn-secondary"/>
+        <Button fx:id="btnCetak" text="Cetak"   onAction="#onCetak"   styleClass="btn-info"/>
+        </HBox>
+
+        <TableView fx:id="table" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colId"    text="ID"        prefWidth="80"/>
+            <TableColumn fx:id="colName"  text="Nama"      prefWidth="180"/>
+            <TableColumn fx:id="colCount" text="#Akses"    prefWidth="80"/>
+            <TableColumn fx:id="colList"  text="Daftar Akses" prefWidth="620"/>
+        </columns>
+        </TableView>
+    </VBox>
+</VBox>

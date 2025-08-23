@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<StackPane fx:id="rootContainer"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.controllers.MainController"
+            styleClass="app-root">
+    <BorderPane>
+        <left>
+            <VBox spacing="20"
+                BorderPane.alignment="CENTER"
+                alignment="TOP_CENTER"
+                styleClass="sidebar"
+                fillWidth="true"
+                minWidth="240" prefWidth="260" maxWidth="260">
+                <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+                <ImageView fitHeight="150" fitWidth="150" preserveRatio="true" styleClass="sidebar-logo">
+                    <image><Image url="@../assets/icon.png"/></image>
+                </ImageView>
+                <Button fx:id="btnBeranda" text="Beranda" styleClass="nav-button" maxWidth="Infinity">
+                    <graphic>
+                        <FontIcon iconLiteral="fas-home" iconSize="18"/>
+                    </graphic>
+                </Button>
+                <Button fx:id="btnDataKeuangan" text="Data Keuangan" styleClass="nav-button" maxWidth="Infinity">
+                    <graphic>
+                        <FontIcon iconLiteral="fas-money-bill-alt" iconSize="18"/>
+                    </graphic>
+                </Button>
+                <Button fx:id="btnDataRole" text="Data Role" styleClass="nav-button" maxWidth="Infinity">
+                    <graphic>
+                        <FontIcon iconLiteral="fas-sitemap" iconSize="18"/>
+                    </graphic>
+                </Button>
+                <Button fx:id="btnDataUser" text="Data User" styleClass="nav-button" maxWidth="Infinity">
+                    <graphic>
+                        <FontIcon iconLiteral="fas-users" iconSize="18"/>
+                    </graphic>
+                </Button>
+                <Button fx:id="btnLaporanEstimasi" text="Laporan Estimasi" styleClass="nav-button" maxWidth="Infinity">
+                    <graphic>
+                        <FontIcon iconLiteral="fas-chart-line" iconSize="18"/>
+                    </graphic>
+                </Button>
+                <Button fx:id="btnTentang" text="Tentang Aplikasi" styleClass="nav-button" maxWidth="Infinity">
+                    <graphic>
+                        <FontIcon iconLiteral="fas-info-circle" iconSize="18"/>
+                    </graphic>
+                </Button>
+                <Button fx:id="btnKeluar" text="Keluar" styleClass="btn-danger" maxWidth="Infinity">
+                    <graphic>
+                        <FontIcon iconLiteral="fas-sign-out-alt" iconSize="18"/>
+                    </graphic>
+                </Button>
+            </VBox>
+        </left>
+        <center>
+            <StackPane fx:id="contentContainer"/>
+        </center>
+    </BorderPane>
+    <VBox fx:id="alertContainer"
+            prefWidth="300" prefHeight="1" minWidth="100" maxWidth="400"
+            minHeight="1" maxHeight="1" spacing="10"
+            StackPane.alignment="BOTTOM_RIGHT" alignment="BOTTOM_RIGHT"
+            styleClass="alert-container"/>
+</StackPane>

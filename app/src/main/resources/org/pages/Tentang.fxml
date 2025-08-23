@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane xmlns:fx="http://javafx.com/fxml" fitToWidth="true" styleClass="scroll-transparent">
+	<VBox spacing="15" style="-fx-background-color: transparent;">
+		<padding>
+			<Insets top="20" right="20" bottom="20" left="20"/>
+		</padding>
+		<Label text="Tentang Aplikasi Estimasi Keuntungan"
+				style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+		<Label text="Deskripsi Aplikasi"
+				style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+		<Label wrapText="true"
+				text="Aplikasi Estimasi Keuntungan merupakan alat bantu untuk memprediksi laba bersih harian berdasarkan data keuangan sederhana. Dirancang untuk pelaku usaha kecil hingga menengah (UMKM) agar dapat mengambil keputusan yang lebih tepat berdasarkan estimasi keuntungan di hari berikutnya."/>
+		<Label text="Fitur Utama"
+				style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+		<VBox>
+			<Label text="• Input Data Keuangan Harian"/>
+			<Label text="• Estimasi Laba Bersih Otomatis"/>
+			<Label text="• Visualisasi Grafik Tren Keuntungan"/>
+			<Label text="• Sistem Peringatan Interaktif (Alert)"/>
+			<Label text="• Tampilan Sederhana &amp; Responsif"/>
+		</VBox>
+		<Label text="Tujuan Pengembangan"
+				style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+		<Label wrapText="true"
+				text="Memberikan solusi cepat dan ringan bagi pelaku usaha untuk melakukan estimasi keuntungan tanpa perlu software akuntansi yang kompleks."/>
+		<Label text="Informasi Pengembang"
+				style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+		<Label wrapText="true"
+				text="Dikembangkan oleh Muhamad Syahrul Ramadhan, mahasiswa Teknik Informatika di Universitas Indraprasta PGRI, sebagai bagian dari tugas akhir mengenai prediksi keuangan menggunakan regresi linear berganda."/>
+		<Separator/>
+		<Label text="Versi: 1.0.0"/>
+		<Label text="© 2025 EstimasiKeuntunganApp"/>
+	</VBox>
+</ScrollPane>

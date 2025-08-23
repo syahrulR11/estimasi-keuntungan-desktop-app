@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="org.controllers.DashboardController" spacing="20">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <HBox>
+        <VBox>
+            <Label fx:id="labelInputTerakhir" text="-" />
+        </VBox>
+    </HBox>
+
+    <!-- Summary Cards -->
+    <HBox spacing="20" alignment="CENTER">
+        <VBox alignment="CENTER" spacing="10" styleClass="card">
+            <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+            <Label text="Penjualan Terakhir" />
+            <Label fx:id="totalPenjualanLabel" text="-" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+        </VBox>
+
+        <VBox alignment="CENTER" spacing="10" styleClass="card">
+            <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+            <Label text="Pembelian Terakhir" />
+            <Label fx:id="totalPembelianLabel" text="-" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+        </VBox>
+
+        <VBox alignment="CENTER" spacing="10" styleClass="card">
+            <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+            <Label text="Stok Barang Terakhir" />
+            <Label fx:id="totalStokBarangLabel" text="-" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+        </VBox>
+    </HBox>
+
+    <HBox spacing="20" alignment="CENTER">
+        <VBox alignment="CENTER" spacing="10" styleClass="card">
+            <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+            <Label text="Keuntungan Terakhir" />
+            <Label fx:id="totalKeuntunganLabel" text="-" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+        </VBox>
+
+        <VBox alignment="CENTER" spacing="10" styleClass="card">
+            <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+            <Label text="Estimasi Keuntungan" />
+            <Label fx:id="estimasiKeuntunganLabel" text="-" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+        </VBox>
+
+        <VBox alignment="CENTER" spacing="10" styleClass="card">
+            <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+            <Label text="Variabel Dominan" />
+            <Label fx:id="fiturDominanLabel" text="-" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+        </VBox>
+    </HBox>
+
+    <!-- Charts Tab Pane -->
+    <TabPane styleClass="tabs" tabClosingPolicy="UNAVAILABLE">
+        <Tab text="Data Keuangan">
+            <LineChart fx:id="lineChart" styleClass="card-table" title="Data Keuangan 7 Hari Terakhir">
+                <xAxis>
+                    <CategoryAxis label="Tanggal" />
+                </xAxis>
+                <yAxis>
+                    <NumberAxis label="Jumlah (Rp)" />
+                </yAxis>
+            </LineChart>
+        </Tab>
+        <Tab text="Pengaruh Variabel">
+            <BarChart fx:id="barChart" styleClass="card-table" title="Pengaruh Variabel">
+                <xAxis>
+                    <CategoryAxis label="Variabel" />
+                </xAxis>
+                <yAxis>
+                    <NumberAxis label="Koefisien" />
+                </yAxis>
+            </BarChart>
+        </Tab>
+    </TabPane>
+</VBox>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+        fx:controller="org.controllers.LaporanEstimasiController"
+        spacing="12">
+
+    <!-- ===== Filter + LineChart R² ===== -->
+    <VBox spacing="12" styleClass="card">
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="R² Skor" styleClass="card-title"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label text="Dari"/>
+            <DatePicker fx:id="dpStart" styleClass="form-input"/>
+            <Label text="s/d"/>
+            <DatePicker fx:id="dpEnd" styleClass="form-input"/>
+            <Button text="Refresh" onAction="#onRefresh" styleClass="btn-secondary"/>
+            <Button fx:id="btnCetak" text="Cetak" onAction="#onCetak" styleClass="btn-info"/>
+        </HBox>
+
+        <LineChart fx:id="lcR2" title="R² per Tanggal">
+        <xAxis>
+            <CategoryAxis fx:id="xAxis" label="Tanggal"/>
+        </xAxis>
+        <yAxis>
+            <NumberAxis fx:id="yAxis" label="R²" lowerBound="0" upperBound="1" tickUnit="0.1" forceZeroInRange="false"/>
+        </yAxis>
+        </LineChart>
+    </VBox>
+
+    <!-- ===== Tabel koefisien ===== -->
+    <VBox spacing="10" styleClass="card" VBox.vgrow="ALWAYS">
+        <Label text="Rekam Jejak Koefisien Model" styleClass="card-title"/>
+        <TableView fx:id="table" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colId"              text="ID"                 prefWidth="60"/>
+            <TableColumn fx:id="colTanggal"         text="Tanggal"            prefWidth="110"/>
+            <TableColumn fx:id="colIntercept"       text="Intercept"          prefWidth="100"/>
+            <TableColumn fx:id="colKPenjualan"      text="Koef Penjualan"     prefWidth="120"/>
+            <TableColumn fx:id="colKPembelian"      text="Koef Pembelian"     prefWidth="120"/>
+            <TableColumn fx:id="colKStok"           text="Koef Stok Barang"   prefWidth="140"/>
+            <TableColumn fx:id="colPPenjualan"      text="Pengaruh Penjualan" prefWidth="150"/>
+            <TableColumn fx:id="colPPembelian"      text="Pengaruh Pembelian" prefWidth="150"/>
+            <TableColumn fx:id="colPStok"           text="Pengaruh Stok"      prefWidth="130"/>
+            <TableColumn fx:id="colActual"          text="Actual Keuntungan"  prefWidth="150"/>
+            <TableColumn fx:id="colEstimasi"        text="Estimasi Keuntungan" prefWidth="170"/>
+            <TableColumn fx:id="colR2"              text="R² Score"           prefWidth="100"/>
+        </columns>
+        </TableView>
+    </VBox>
+</VBox>

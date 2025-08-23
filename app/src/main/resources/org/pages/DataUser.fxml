@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane xmlns:fx="http://javafx.com/fxml"
+        fx:controller="org.controllers.DataUserController"
+        fitToWidth="true" 
+        styleClass="scroll-transparent">
+    <VBox spacing="12" style="-fx-background-color: transparent;">
+
+        <!-- ===== FORM ===== -->
+        <VBox spacing="12" styleClass="card">
+            <Label text="Kelola User" styleClass="card-title"/>
+
+            <GridPane hgap="12" vgap="8">
+            <columnConstraints>
+                <ColumnConstraints minWidth="120" halignment="RIGHT"/>
+                <ColumnConstraints hgrow="ALWAYS"/>
+                <ColumnConstraints minWidth="120" halignment="RIGHT"/>
+                <ColumnConstraints hgrow="ALWAYS"/>
+            </columnConstraints>
+
+            <Label text="ID" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <TextField fx:id="tfId" editable="false" promptText="(otomatis)" disable="true"
+                        GridPane.rowIndex="0" GridPane.columnIndex="1" styleClass="form-input"/>
+
+            <Label text="Nama" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+            <TextField fx:id="tfName" promptText="Nama lengkap"
+                        GridPane.rowIndex="0" GridPane.columnIndex="3" styleClass="form-input"/>
+
+            <Label text="Username" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <TextField fx:id="tfUsername" promptText="username"
+                        GridPane.rowIndex="1" GridPane.columnIndex="1" styleClass="form-input"/>
+
+            <Label text="Email" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+            <TextField fx:id="tfEmail" promptText="nama@email.com"
+                        GridPane.rowIndex="1" GridPane.columnIndex="3" styleClass="form-input"/>
+
+            <Label text="Telepon" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <TextField fx:id="tfPhone" promptText="08xxxxxxxxxx"
+                        GridPane.rowIndex="2" GridPane.columnIndex="1" styleClass="form-input"/>
+
+            <Label text="Role" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+            <ComboBox fx:id="cbRole" promptText="Pilih role"
+                        GridPane.rowIndex="2" GridPane.columnIndex="3" styleClass="form-input"/>
+
+            <Label text="Gender" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="cbGender" promptText="Pilih gender"
+                        GridPane.rowIndex="3" GridPane.columnIndex="1" styleClass="form-input"/>
+
+            <Label text="Tanggal Lahir" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
+            <DatePicker fx:id="dpBirth" GridPane.rowIndex="3" GridPane.columnIndex="3" styleClass="form-input"/>
+
+            <Label text="Alamat" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+            <TextArea fx:id="taAddress" prefRowCount="3" wrapText="true"
+                        GridPane.rowIndex="4" GridPane.columnIndex="1" GridPane.columnSpan="3"/>
+
+            <Label text="Password" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+            <PasswordField fx:id="pfPassword"
+                        promptText="Minimal 6 karakter"
+                        GridPane.rowIndex="5" GridPane.columnIndex="1"
+                        styleClass="form-input"/>
+            <Label text="Konfirmasi" GridPane.rowIndex="5" GridPane.columnIndex="2"/>
+            <PasswordField fx:id="pfConfirm"
+                        promptText="Ulangi password"
+                        GridPane.rowIndex="5" GridPane.columnIndex="3"
+                        styleClass="form-input"/>
+
+            <Label text="(Kosongkan saat edit jika tidak ingin mengubah password)"
+                GridPane.rowIndex="6" GridPane.columnIndex="1" GridPane.columnSpan="3"
+                styleClass="helper-text"/>
+
+            <HBox alignment="CENTER_RIGHT" spacing="8"
+                    GridPane.rowIndex="7" GridPane.columnIndex="0" GridPane.columnSpan="4">
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="btnSimpan" text="Simpan" onAction="#onSimpan" styleClass="btn-primary"/>
+                <Button fx:id="btnUbah"   text="Edit"   onAction="#onUbah"   styleClass="btn-info"/>
+                <Button fx:id="btnHapus"  text="Hapus"  onAction="#onHapus"  styleClass="btn-danger"/>
+                <Button fx:id="btnReset"  text="Reset"  onAction="#onReset" styleClass="btn-warning"/>
+            </HBox>
+            </GridPane>
+        </VBox>
+
+        <!-- ===== TABEL ===== -->
+        <VBox spacing="10" styleClass="card" VBox.vgrow="ALWAYS">
+            <HBox spacing="8" alignment="CENTER_LEFT">
+            <Label text="Daftar User" styleClass="card-title"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <TextField fx:id="tfCari" promptText="Cari nama / username / email" styleClass="form-input"/>
+            <ComboBox fx:id="cbRoleFilter" promptText="Semua Role" prefWidth="180" />
+            <Button text="Refresh" onAction="#onRefresh" styleClass="btn-warning"/>
+            <Button fx:id="btnCetak" text="Cetak" onAction="#onCetak" styleClass="btn-info"/>
+            </HBox>
+
+            <TableView fx:id="table" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colId"       text="ID"        prefWidth="60"/>
+                <TableColumn fx:id="colName"     text="Nama"      prefWidth="160"/>
+                <TableColumn fx:id="colUsername" text="Username"  prefWidth="120"/>
+                <TableColumn fx:id="colEmail"    text="Email"     prefWidth="200"/>
+                <TableColumn fx:id="colRole"     text="Role"      prefWidth="200"/>
+                <TableColumn fx:id="colCreated"  text="Dibuat"    prefWidth="100"/>
+            </columns>
+            </TableView>
+        </VBox>
+    </VBox>
+</ScrollPane>

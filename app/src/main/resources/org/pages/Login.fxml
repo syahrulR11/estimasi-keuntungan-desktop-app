@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.controllers.LoginController"
+            styleClass="login-root">
+    <children>
+        <VBox spacing="12" alignment="CENTER"
+                AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+                AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <!-- Kartu -->
+            <VBox maxWidth="360" styleClass="login-card" alignment="CENTER">
+                <!-- Logo -->
+                <ImageView fitHeight="64" fitWidth="64" preserveRatio="true" styleClass="logo">
+                    <image>
+                        <Image url="@../assets/icon.png"/>
+                    </image>
+                </ImageView>
+
+                <Label text="Estimasi Keuntungan" styleClass="login-title"/>
+                <Label text="Silakan login untuk melanjutkan" styleClass="login-subtitle"/>
+
+                <VBox spacing="8" maxWidth="300">
+                    <Label text="Username"/>
+                    <TextField fx:id="usernameField" promptText="admin"/>
+
+                    <Label text="Password"/>
+                    <PasswordField fx:id="passwordField" promptText="••••••••"/>
+
+                    <Label fx:id="errorLabel" textFill="red" visible="false"/>
+
+                    <Button fx:id="loginBtn" text="Masuk" onAction="#onLogin" defaultButton="true" maxWidth="Infinity" styleClass="btn-primary"/>
+                </VBox>
+            </VBox>
+        </VBox>
+    </children>
+</AnchorPane>

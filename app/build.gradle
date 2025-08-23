@@ -9,7 +9,14 @@ repositories {
 }
 
 dependencies {
+    implementation 'org.apache.pdfbox:pdfbox:2.0.30'
     implementation 'com.google.guava:guava:33.0.0-jre'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.0'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.17.0'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.17.2'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.17.0'
+    implementation 'org.kordamp.ikonli:ikonli-javafx:12.3.1'
+    implementation 'org.kordamp.ikonli:ikonli-fontawesome5-pack:12.3.1'
 }
 
 javafx {
@@ -21,7 +28,13 @@ application {
 }
 
 runtime {
-    modules = ['javafx.controls', 'javafx.fxml']
+    modules = [
+        'java.base', 
+        'java.desktop', 
+        'javafx.controls', 
+        'javafx.fxml',
+        'jdk.crypto.ec'
+    ]
 
     jpackage {
         imageName = 'EstimasiKeuntungan'

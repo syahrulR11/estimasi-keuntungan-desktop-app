@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="org.controllers.DataKeuanganController"
+        spacing="12" styleClass="app-root">
+    <!-- FORM INPUT (card) -->
+    <VBox spacing="12" styleClass="card">
+        <Label text="Input Data Keuangan" styleClass="card-title"/>
+
+        <GridPane hgap="12" vgap="8">
+        <columnConstraints>
+            <ColumnConstraints minWidth="120" halignment="RIGHT"/>
+            <ColumnConstraints hgrow="ALWAYS"/>
+            <ColumnConstraints minWidth="120" halignment="RIGHT"/>
+            <ColumnConstraints hgrow="ALWAYS"/>
+        </columnConstraints>
+
+        <!-- Baris 1 -->
+        <Label text="Tanggal" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <DatePicker styleClass="form-input" fx:id="dpTanggal" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+
+        <Label text="Penjualan" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+        <TextField styleClass="form-input" fx:id="tfPenjualan" promptText="0" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+        <!-- Baris 2 -->
+        <Label text="Pembelian" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField styleClass="form-input" fx:id="tfPembelian" promptText="0" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+        <Label text="Stok Barang" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+        <TextField styleClass="form-input" fx:id="tfStok" promptText="0" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+        <!-- Baris 3 -->
+        <Label text="Keuntungan" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <TextField styleClass="form-input" fx:id="tfKeuntungan" promptText="0" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+        <HBox spacing="8" alignment="CENTER_RIGHT" GridPane.rowIndex="2" GridPane.columnIndex="3">
+            <Button fx:id="btnSimpan" text="Simpan" onAction="#onSimpan" styleClass="btn-primary"/>
+            <Button fx:id="btnReset" text="Reset" onAction="#onReset" styleClass="btn-warning" />
+        </HBox>
+        </GridPane>
+    </VBox>
+
+    <!-- FILTER + TABEL (card) -->
+    <VBox spacing="10" styleClass="card" VBox.vgrow="ALWAYS">
+        <HBox spacing="8" alignment="CENTER_LEFT">
+        <Label text="Rentang Tanggal:"/>
+        <DatePicker styleClass="form-input" fx:id="dpStart"/>
+        <Label text="s/d"/>
+        <DatePicker styleClass="form-input" fx:id="dpEnd"/>
+        <Button text="Filter" onAction="#onFilter" styleClass="btn-primary" />
+        <Button text="Reset Filter" onAction="#onResetFilter" styleClass="btn-warning" />
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="Refresh" onAction="#onRefresh" styleClass="btn-secondary" />
+        <Button fx:id="btnCetak" text="Cetak"   onAction="#onCetak"   styleClass="btn-info"/>
+        </HBox>
+
+        <TableView fx:id="table" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colTanggal" text="Tanggal" prefWidth="140"/>
+            <TableColumn fx:id="colPenjualan" text="Penjualan" prefWidth="140"/>
+            <TableColumn fx:id="colPembelian" text="Pembelian" prefWidth="140"/>
+            <TableColumn fx:id="colStok" text="Stok" prefWidth="160"/>
+            <TableColumn fx:id="colKeuntungan" text="Keuntungan" prefWidth="160"/>
+            <TableColumn fx:id="colCreator" text="Pembuat" prefWidth="160"/>
+        </columns>
+        </TableView>
+    </VBox>
+</VBox>

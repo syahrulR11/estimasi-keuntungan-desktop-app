@@ -1,0 +1,84 @@
+/* Background gradasi lembut */
+.login-root {
+  -fx-background-color: linear-gradient(to bottom right, #e9f0ff, #f8f0ff);
+}
+
+/* Kartu login */
+.login-card {
+  -fx-background-color: white;
+  -fx-background-radius: 16;
+  -fx-padding: 28;
+  -fx-spacing: 14;
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 16, 0.25, 0, 6);
+}
+
+/* Logo */
+.logo {
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 10, 0.3, 0, 2);
+}
+
+/* Judul & subjudul */
+.login-title {
+  -fx-font-size: 18px;
+  -fx-font-weight: bold;
+  -fx-text-fill: #4a2979;
+}
+.login-subtitle {
+  -fx-text-fill: #6b7280;
+  -fx-font-size: 12px;
+}
+
+/* Input */
+.text-field, .password-field {
+  -fx-background-radius: 10;
+  -fx-background-color: #f3f4f6;
+  -fx-padding: 10 12;
+  -fx-border-color: transparent;
+  -fx-border-radius: 10;
+}
+.text-field:focused, .password-field:focused {
+  -fx-background-color: white;
+  -fx-border-color: #8b5cf6;
+  -fx-effect: dropshadow(three-pass-box, rgba(139,92,246,0.25), 12, 0.3, 0, 0);
+}
+
+/* Tombol utama (Masuk) */
+.btn-primary {
+  -fx-background-radius: 12;
+  -fx-padding: 10 16;
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+  -fx-cursor: hand;
+  -fx-graphic-text-gap: 8;
+  -fx-background-insets: 0, 1, 2;
+  -fx-background-color:
+      linear-gradient(to bottom, rgba(255,255,255,0.15), rgba(0,0,0,0.08)),
+      linear-gradient(to bottom, #8b5cf6, #6d28d9),
+      #5b21b6;
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.22), 8, 0.25, 0, 3);
+  -fx-border-color: transparent;
+}
+.btn-primary:hover {
+  -fx-background-color:
+      linear-gradient(to bottom, rgba(255,255,255,0.25), rgba(0,0,0,0.06)),
+      linear-gradient(to bottom, #9f7aea, #7c3aed),
+      #6d28d9;
+}
+.btn-primary:pressed {
+  -fx-background-insets: 1, 2, 3;
+  -fx-background-color:
+      linear-gradient(to bottom, rgba(0,0,0,0.10), rgba(0,0,0,0.18)),
+      linear-gradient(to bottom, #7c3aed, #5b21b6),
+      #4c1d95;
+}
+.btn-primary:focused {
+  -fx-effect: dropshadow(three-pass-box, rgba(124,58,237,0.45), 12, 0.3, 0, 0);
+  -fx-faint-focus-color: rgba(124,58,237,0.25);
+  -fx-focus-color: #c4b5fd;
+}
+
+/* Info kecil (default creds) */
+.helper-text {
+  -fx-font-size: 10px;
+  -fx-text-fill: #8a8f98;
+}
