@@ -4,20 +4,24 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ListChangeListener;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
+
 import org.models.LaporanEstimasi;
 import org.models.LaporanEstimasiResponse;
+import org.models.PreProcessing;
+import org.models.PreProcessingResponse;
 import org.util.Http;
 import org.util.Util;
 
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
@@ -44,6 +48,10 @@ public class LaporanEstimasiController {
     @FXML private CategoryAxis xAxis;
     @FXML private NumberAxis yAxis;
     @FXML private Button btnCetak;
+    @FXML private ImageView imgBoxplot;
+    @FXML private TableView<java.util.Map<String, String>> tvPre;
+    @FXML private Label lblPreTotal;
+    @FXML private GridPane cardGrid;
 
     @FXML private TableView<LaporanEstimasi> table;
     @FXML private TableColumn<LaporanEstimasi,String> colId, colTanggal, colIntercept,
@@ -63,8 +71,8 @@ public class LaporanEstimasiController {
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
             .findAndRegisterModules();
 
-    private final ZoneId zone = ZoneId.systemDefault();
     private final DateTimeFormatter iso = DateTimeFormatter.ISO_DATE;
+    @SuppressWarnings("deprecation")
     private final DateTimeFormatter dIndo = DateTimeFormatter.ofPattern("d MMM yyyy", new Locale("id","ID"));
 
     private static final String BASE = "api/model"; // endpoint GET data model
@@ -96,12 +104,33 @@ public class LaporanEstimasiController {
         colTanggal.setCellValueFactory(c -> new SimpleStringProperty(
                 c.getValue().getTanggal() == null ? "-" : c.getValue().getTanggal().format(dIndo)));
 
+        // Atur grow & binding lebar 50% dari card (bukan layar)
+        GridPane.setHgrow(imgBoxplot, javafx.scene.layout.Priority.ALWAYS);
+        GridPane.setHgrow(lcR2,      javafx.scene.layout.Priority.ALWAYS);
+        GridPane.setVgrow(imgBoxplot, javafx.scene.layout.Priority.ALWAYS);
+        GridPane.setVgrow(lcR2,       javafx.scene.layout.Priority.ALWAYS);
+
+        imgBoxplot.setPreserveRatio(true);
+        // width = (lebar card - hgap) / 2
+        imgBoxplot.fitWidthProperty().bind(
+            cardGrid.widthProperty().subtract(cardGrid.getHgap()).divide(2.0)
+        );
+        lcR2.prefWidthProperty().bind(
+            cardGrid.widthProperty().subtract(cardGrid.getHgap()).divide(2.0)
+        );
+
+        lcR2.setMinHeight(240);
+
         // load data
         onRefresh();
 
         // reload jika tanggal berubah
         dpStart.valueProperty().addListener((o, ov, nv) -> onRefresh());
         dpEnd.valueProperty().addListener((o, ov, nv) -> onRefresh());
+
+        loadPreprocessing();
+        tvPre.getItems().addListener((ListChangeListener<Map<String,String>>) c -> updatePreTotal());
+        updatePreTotal();
     }
 
     // helper set kolom numeric
@@ -112,6 +141,91 @@ public class LaporanEstimasiController {
             String txt = Double.isNaN(v) ? "-" : String.format(Locale.US, "%." + scale + "f", v);
             return new SimpleStringProperty(txt);
         });
+    }
+
+    private void loadPreprocessing() {
+        Task<Void> t = new Task<>() {
+            @Override protected Void call() throws Exception {
+                Http http = new Http();
+
+                // 1) GET JSON preprocessing
+                String resp = http.GET(BASE+"/preprocessing", null);
+                PreProcessingResponse pr = mapper.readValue(resp, PreProcessingResponse.class);
+                if (!pr.isStatus()) throw new IllegalStateException(pr.getMessage() == null ? "Preprocessing gagal" : pr.getMessage());
+
+                // 2) Muat gambar boxplot
+                String url = BASE+"/preprocessing/image";
+                byte[] pngBytes = http.GET_BYTES(url, null);   // <- ini KUNCI: bytes, bukan String URL
+
+                javafx.scene.image.Image img =
+                        new javafx.scene.image.Image(new java.io.ByteArrayInputStream(pngBytes));
+
+                javafx.application.Platform.runLater(() -> {
+                    imgBoxplot.setPreserveRatio(true);
+                    // imgBoxplot.setFitWidth(900);
+                    imgBoxplot.setImage(img);
+                });
+
+                // 3) Isi tabel preprocessing (kolom dinamis dari keys)
+                java.util.List<PreProcessing> list = (pr.getData() == null)
+                        ? java.util.List.of()
+                        : pr.getData();
+
+                // === mapping DTO -> Map<String,String> untuk TableView dinamis ===
+                java.util.List<java.util.Map<String,String>> rows = new java.util.ArrayList<>(list.size());
+                for (PreProcessing d : list) {
+                    java.util.Map<String,String> m = new java.util.LinkedHashMap<>();
+                    m.put("tanggal",                d.tanggal == null ? "" : d.tanggal);
+                    m.put("penjualan",              fmtD(d.penjualan));
+                    m.put("pembelian",              fmtD(d.pembelian));
+                    m.put("stok_barang",            fmtD(d.stokBarang));
+                    m.put("keuntungan",             fmtD(d.keuntungan));
+                    if (d.keuntunganSmoothed != null) {
+                        m.put("keuntungan_smoothed", fmtD(d.keuntunganSmoothed));
+                    }
+                    rows.add(m);
+                }
+
+                // === tampilkan di UI ===
+                Platform.runLater(() -> {
+                    buildDynamicColumns(tvPre, rows);
+                    tvPre.getItems().setAll(rows);
+                    updatePreTotal();
+                });
+
+                return null;
+            }
+        };
+
+        t.setOnFailed(e -> showError(t.getException() != null ? t.getException().getMessage() : "Gagal memuat preprocessing"));
+        new Thread(t, "load-preprocessing").start();
+    }
+
+    private static String fmtD(Double v) {
+        return v == null ? "" : String.format(java.util.Locale.US, "%.2f", v);
+    }
+
+    private void buildDynamicColumns(
+            TableView<java.util.Map<String,String>> tv,
+            java.util.List<java.util.Map<String,String>> rows
+    ) {
+        tv.getColumns().clear();
+        if (rows == null || rows.isEmpty()) return;
+
+        // urutkan keys stabil dari baris pertama
+        var keys = new java.util.ArrayList<>(rows.get(0).keySet());
+        for (String key : keys) {
+            TableColumn<java.util.Map<String,String>, String> col = new TableColumn<>(key);
+            col.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().getOrDefault(key, "")));
+            col.setPrefWidth(Math.max(100, key.length() * 9.0)); // perkiraan lebar
+            tv.getColumns().add(col);
+        }
+    }
+
+    private void updatePreTotal() {
+        if (lblPreTotal == null || tvPre == null) return;
+        int n = tvPre.getItems() == null ? 0 : tvPre.getItems().size();
+        lblPreTotal.setText("Total data: " + n);
     }
 
     @FXML
@@ -212,6 +326,7 @@ public class LaporanEstimasiController {
         if (labels.size() > 8) xAxis.setTickLabelRotation(45);
     }
 
+    @SuppressWarnings("null")
     private Path exportModelToPdf(List<org.models.LaporanEstimasi> rows, LocalDate start, LocalDate end) throws Exception {
         try (PDDocument doc = new PDDocument()) {
             PDType1Font font     = PDType1Font.HELVETICA;
@@ -221,8 +336,6 @@ public class LaporanEstimasiController {
             float pageW = PDRectangle.A4.getHeight();  // 842
             float pageH = PDRectangle.A4.getWidth();   // 595
             PDRectangle LAND = new PDRectangle(pageW, pageH);
-
-            float contentW = pageW - 2 * MARGIN;
 
             // Lebar kolom (total <= contentW ~ 770)
             final float[] widths = {

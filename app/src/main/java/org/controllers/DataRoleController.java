@@ -51,7 +51,7 @@ public class DataRoleController {
         "api.user.get","api.user.create","api.user.edit","api.user.update","api.user.delete",
         "api.role.get","api.role.create","api.role.edit","api.role.update","api.role.delete",
         "api.keuangan.get","api.keuangan.create",
-        "api.model.get","api.model.koef","api.model.predict"
+        "api.model.get","api.model.koef","api.model.predict","api.model.preprocessing","api.model.preprocessing.image"
     );
 
     // map access → CheckBox

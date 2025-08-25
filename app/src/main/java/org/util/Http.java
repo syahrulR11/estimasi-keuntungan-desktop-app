@@ -6,6 +6,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 import java.util.Map;
 import java.util.StringJoiner;
 import org.services.Session;
@@ -17,6 +18,24 @@ public class Http {
 
     public Http() {
         this.client = HttpClient.newHttpClient();
+    }
+
+    private String buildUrl(String path, Map<String,String> q) {
+        // path boleh relatif: "api/model/preprocessing/image" ATAU absolut: "http://..."
+        String base = path.startsWith("http") ? path
+                : (host.endsWith("/") ? host : host + "/") +
+                  (path.startsWith("/") ? path.substring(1) : path);
+        if (q == null || q.isEmpty()) return base;
+        StringBuilder sb = new StringBuilder(base);
+        sb.append(base.contains("?") ? "&" : "?");
+        boolean first = true;
+        for (var e : q.entrySet()) {
+            if (!first) sb.append("&"); first = false;
+            sb.append(URLEncoder.encode(e.getKey(), StandardCharsets.UTF_8))
+              .append("=")
+              .append(URLEncoder.encode(e.getValue(), StandardCharsets.UTF_8));
+        }
+        return sb.toString();
     }
 
     public String GET(String url, Map<String, String> queryParams) throws Exception {
@@ -79,5 +98,22 @@ public class Http {
             );
         }
         return joiner.toString();
+    }
+
+    public byte[] GET_BYTES(String path, Map<String,String> q) throws Exception {
+        String url = buildUrl(path, q);
+        String t = Session.token();
+        HttpRequest req = HttpRequest.newBuilder(URI.create(url))
+                .GET().timeout(Duration.ofSeconds(30)).header("Authorization", "Bearer " + t).build();
+        HttpResponse<byte[]> resp = client.send(req, HttpResponse.BodyHandlers.ofByteArray());
+        if (resp.statusCode() != 200)
+            throw new IllegalStateException("HTTP " + resp.statusCode() + " untuk " + url);
+        String ctype = resp.headers().firstValue("Content-Type").orElse("");
+        if (!ctype.startsWith("image/")) {
+            String head = new String(resp.body(), StandardCharsets.UTF_8);
+            if (head.length() > 120) head = head.substring(0,120) + "...";
+            throw new IllegalStateException("Respons bukan gambar (Content-Type=" + ctype + "): " + head);
+        }
+        return resp.body();
     }
 }
